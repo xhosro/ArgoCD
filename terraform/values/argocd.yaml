@@ -1,0 +1,12 @@
+---
+# Specifies the version of the Argo CD Docker image to use
+global: 
+   image:
+      tag: "v2.6.6"
+
+# I don't want argocd to generate a self-cert and redirect http to https
+# If we want to expose argocd outside, you would use ingress and terminate https on the ingress level and then route plaini http to argocd
+# This is useful in scenarios where you manage HTTPS termination separately.
+server:
+   extraArgs:
+      - --insecure
