@@ -9,7 +9,7 @@ resource "helm_release" "argocd" {
     version = "3.35.4"
     repository = "https://argoproj.github.io/argo-helm"
 
-    values = [file("values/argocd.yaml"))]
+    values = [file("values/argocd.yaml")]
   
 }
 # one way is to use set statements and to target individual values

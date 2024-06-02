@@ -5,6 +5,7 @@ global:
       tag: "v2.6.6"
 
 # I don't want argocd to generate a self-cert and redirect http to https
+# By default, Argo CD might generate a self-signed certificate for HTTPS connections. The --insecure flag disables this behavior, allowing HTTP connections directly to the Argo CD server.
 # If we want to expose argocd outside, you would use ingress and terminate https on the ingress level and then route plaini http to argocd
 # This is useful in scenarios where you manage HTTPS termination separately.
 server:
