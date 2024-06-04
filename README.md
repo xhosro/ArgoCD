@@ -100,6 +100,40 @@ to simulate CD pipeline, we would need to incerment image tags to deploy new ver
  docker push rhosrow/nginx:v0.1.0 
 
 
- now we deploy kubernetes for this new docker image
+ now we deploy kubernetes for this new docker image with new public repo , we created before
 
 
+ and then we say to argocd to watch this particuler repo in main project
+ for first example:
+
+we create a first argocd yaml file for to track our repo, we need to manually
+
+ kubectl apply -f 1-example/app.yaml
+
+% kubectl get pods -n prod
+No resources found in prod namespace.
+
+then we go to argocd interface and sync manually with public repo
+when we click sync , this is good practice for prod environment
+
+- simulate a CI/CD pipeline and release a new version of our app
+
+ docker tag nginx:1.27.0 rhosrow/nginx:0.1.1
+ docker push rhosrow/nginx:0.1.1
+
+in the project gitOPS, we change the tag in deployment manifest
+and make a git commit an push it to the repo 
+
+it takes some minutes for argo without setting up a webhook 
+also to set up a webhook means you need to expose argocd to the internet that isnt a good way for security of companies
+
+if you host your own git like gitlab, you can set up a webhook inside your environment to speed up the process
+
+then we can add sync policy &option
+
+
+## automate the built agent for upgrade the images with script
+
+create a .sh file and make it executable
+
+chmod +x build-agent.sh
