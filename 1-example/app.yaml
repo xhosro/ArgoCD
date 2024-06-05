@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: my-app # name of the app
   namespace: argocd # dont confuse with a target namespace, it is always to be argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # if you want to delete all of them at once
 spec:
   project: default # provide a logical grouping of app which is useful when argoCD is used by multiple teams
   source:

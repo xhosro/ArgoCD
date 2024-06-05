@@ -137,3 +137,45 @@ then we can add sync policy &option
 create a .sh file and make it executable
 
 chmod +x build-agent.sh
+
+
+for deleteing app we can add to metadata of argo manifest
+
+  - kubectl delete -f 1-example/app.yaml
+
+finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+it looks like argocd remove it from the UI but the app is still running 
+i acctually want delete a kubernetes as well when i delete the application resource
+to do that we add a finalizers the metadeta yaml 
+
+it is the thing most of the time, especially helpful for app of apps pattern
+
+## app of apps pattern
+when you have a lot of application that you want to deploy to kubernetes, you want to create them manually.
+the most common approach that poeple use it is the app of apps pattern, when you mange the creation & deletion of the apps using same gitOps repo.
+
+uodate the namespace to foo #first app
+and create second app
+so we have two app
+
+then add my-app.yaml and my-app-2 in environment/staging/apps
+
+so we have kubernetes deployment files and corresponding argocd app resources to register them with argoCD
+the workflow for the helm and kustomize is similar except that you target helm charts
+and the push to github
+
+git add . 
+git commit -m ""
+git push origin main -f 
+
+so in the main folder we create folder 2 and add 
+the path: environments/staging/apps
+
+so this app resource will apply all of them
+
+
+
+
+
